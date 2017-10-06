@@ -3,24 +3,24 @@ $(document).ready(function() {
         $(this).bootstrapTable('destroy');
         $(this).bootstrapTable().
         unbind('check.bs.table').on('check.bs.table', function (e, row) {
-            consLibr([{name : 'codiLibr', value : row.id.trim()}]);
+            consUnid([{name : 'codiUnid', value : row.id.trim()}]);
         });
         return false;
     };
     
-    $('#modaFormLibr').on('show.bs.modal', function() {
-        INIT_OBJE_MODA_LIBR();
+    $('#modaFormUnid').on('show.bs.modal', function() {
+        INIT_OBJE_MODA_UNID();
     });
     
-    INIT_OBJE_LIBR();
+    INIT_OBJE_UNID();
 });
 
-function INIT_OBJE_LIBR()
+function INIT_OBJE_UNID()
 {
-    $("#tablLibr").initBootTable();
+    $("#tablUnid").initBootTable();
 }
 
-function INIT_OBJE_MODA_LIBR()
+function INIT_OBJE_MODA_UNID()
 {
     $("#formTest\\:btonElim").confirmation({container: '#formTest'});
 }
