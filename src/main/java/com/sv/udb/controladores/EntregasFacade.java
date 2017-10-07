@@ -6,9 +6,11 @@
 package com.sv.udb.controladores;
 
 import com.sv.udb.modelos.Entregas;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -29,4 +31,17 @@ public class EntregasFacade extends AbstractFacade<Entregas> implements Entregas
         super(Entregas.class);
     }
     
+    @Override
+    public List<Entregas> findByEstaEntr(Entregas objeEntr) {
+        TypedQuery<Entregas> query = em.createNamedQuery("Entregas.findByEstaEntr", Entregas.class);
+        query.setParameter("estaEntr", objeEntr.getEstaEntr());
+        if (!query.getResultList().isEmpty())
+        {
+            return query.getResultList();
+        }
+        else
+        {
+            return null;
+        }
+    }
 }

@@ -30,12 +30,128 @@
         <h:outputScript library="js" name="bootstrap-tooltip.js"/>
         <h:outputScript library="js" name="bootstrap-confirmation.js"/>
         <!--Plugins para extras-->
-        <title>Vaso de leche</title>
+        <ui:insert name="css"/>
+        <ui:insert name="js"/>
         <f:event type="preRenderView" listener="#{plantillaBean.veriSesi()}"/>
+        <title>Vaso de leche</title>
     </h:head>
     <h:body>
+
         <div id="content" class="center_content">
-            <ui:insert name="content">Content</ui:insert>
+            <div class="container">
+                <div class="row">
+                    <h:form id="formMenu">
+                        <div class="col-sm-3 col-md-3">
+                            <div class="panel-group" id="accordion">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <p:commandButton
+                                                actionListener="#{plantillaBean.cerrSesi()}"
+                                                action="/index?faces-redirect=true"
+                                                icon="ui-icon-power"
+                                                value="Cerrar Sesión"
+                                                />
+                                        </h4>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <p:commandLink action="principal" 
+                                                           value="Menu" 
+                                                           class="glyphicon glyphicon-folder-close"/>
+                                        </h4>
+                                    </div>
+                                </div>
+                                <ui:fragment rendered="#{plantillaBean.veriSesi()}">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h4 class="panel-title">
+                                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne"><span class="glyphicon glyphicon-folder-close">
+                                                    </span>Cruds</a>
+                                            </h4>
+                                        </div>
+                                        <div id="collapseOne" class="panel-collapse collapse">
+                                            <div class="panel-body">
+                                                <table class="table">
+                                                    <tr>
+                                                        <td>
+                                                            <span class="glyphicon glyphicon-pencil text-primary"></span>
+                                                            <p:commandLink action="mantoUsua" value="Usuarios"/>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <span class="glyphicon glyphicon-flash text-success"></span>
+                                                            <p:commandLink action="mantoUnidMedi" value="Unidades de Medidas"/>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <span class="glyphicon glyphicon-file text-info"></span><a href="">Departamentos</a>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <span class="glyphicon glyphicon-comment text-success"></span><a href="">Escuelas</a>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <span class="glyphicon glyphicon-comment text-success"></span><a href="">Leche</a>
+                                                            <span class="badge">1</span>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </ui:fragment>                                
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo"><span class="glyphicon glyphicon-th">
+                                                </span>Otras cosas</a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseTwo" class="panel-collapse collapse">
+                                        <div class="panel-body">
+                                            <table class="table">
+                                                <tr>
+                                                    <td>
+                                                        <a href="http://www.jquery2dotnet.com">Para dinero </a> <span class="label label-success">$ 9.99</span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <a href="http://www.jquery2dotnet.com">Segundo</a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <a href="http://www.jquery2dotnet.com">no se</a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <a href="http://www.jquery2dotnet.com">Texto</a>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </h:form>
+                    <div class="col-sm-9 col-md-9">
+                        <div class="well">
+                            <ui:insert name="content">Content</ui:insert>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </h:body>
 </html>

@@ -12,7 +12,7 @@ and open the template in the editor.
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
     <h:head>
-        <title>MANTENIMIENTO DE USUARIOS ::: UDB</title>
+        <title>VASO DE LECHE ::: SV</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <!--Plugins Frameworks y por el desarrolador-->
         <h:outputScript library="js" name="jquery-3.1.0.min.js" />
@@ -50,7 +50,7 @@ and open the template in the editor.
                             </div>
                             <div class="form-group">
                                 <h:outputLabel  for="cont" value="Contraseña: "/>
-                                <h:inputText id="cont" required="true" class="form-control input-lg" value="#{usuariosBean.objeUsua.contUsua}"/>
+                                <h:inputSecret id="cont" required="true" class="form-control input-lg" value="#{usuariosBean.objeUsua.contUsua}"/>
                             </div>
                             <span class="button-checkbox">
                                 <button type="button" class="btn" data-color="info">Recuerdame</button>

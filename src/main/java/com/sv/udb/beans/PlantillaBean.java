@@ -19,7 +19,8 @@ import javax.faces.view.ViewScoped;
 @ViewScoped
 public class PlantillaBean implements Serializable {
 
-    public void VeriSesi(){
+    public boolean veriSesi(){
+        boolean resp = true;
         try {
             FacesContext ctx = FacesContext.getCurrentInstance();
             Usuarios usuaActu = (Usuarios)ctx.getExternalContext().getSessionMap().get("usuaActu");
@@ -27,9 +28,19 @@ public class PlantillaBean implements Serializable {
             {
                 ctx.getExternalContext().redirect("./../permisos.xhtml");
             }
+            else
+            {
+                int codiTipo = usuaActu.getCodiTipo().getCodiTipo();
+                if (codiTipo == 1) resp = true;  
+                else resp = false;
+            }
         } catch (Exception e) {
-            //Logeooooo
+            resp = false;
         }
+        return resp;
     }
     
+    public void cerrSesi() {
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+    }
 }

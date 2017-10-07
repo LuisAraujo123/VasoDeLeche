@@ -164,7 +164,6 @@ public class UsuariosBean implements Serializable {
             {
                 FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuaActu", this.objeUsua);
                 redireccion = "/protegido/principal";
-                System.out.println(redireccion);
             }
             else
             {
