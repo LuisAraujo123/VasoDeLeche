@@ -1,0 +1,120 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core" 
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough" 
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <body>
+
+        <ui:composition template="./../WEB-INF/templates/plantilla.xhtml">
+
+            <ui:define name="content">
+                <div class="container">
+                    <div class="row">
+                        <h:form id="formMenu">
+                            <div class="col-sm-3 col-md-3">
+                                <div class="panel-group" id="accordion">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h4 class="panel-title">
+                                                <p:commandLink action="menu" 
+                                                               value="Menu" 
+                                                               class="glyphicon glyphicon-folder-close"/>
+                                            </h4>
+                                        </div>
+                                    </div>
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h4 class="panel-title">
+                                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne"><span class="glyphicon glyphicon-folder-close">
+                                                    </span>Cruds</a>
+                                            </h4>
+                                        </div>
+                                        <div id="collapseOne" class="panel-collapse collapse">
+                                            <div class="panel-body">
+                                                <table class="table">
+                                                    <tr>
+                                                        <td>
+                                                            <span class="glyphicon glyphicon-pencil text-primary"></span>
+                                                            <p:commandLink action="mantoUsuarios" value="Usuarios"/>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <span class="glyphicon glyphicon-flash text-success"></span>
+                                                            <p:commandLink action="mantoUnidadesMedidas" value="Unidades de Medidas"/>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <span class="glyphicon glyphicon-file text-info"></span><a href="">Departamentos</a>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <span class="glyphicon glyphicon-comment text-success"></span><a href="">Escuelas</a>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <span class="glyphicon glyphicon-comment text-success"></span><a href="">Leche</a>
+                                                            <span class="badge">1</span>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h4 class="panel-title">
+                                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo"><span class="glyphicon glyphicon-th">
+                                                    </span>Otras cosas</a>
+                                            </h4>
+                                        </div>
+                                        <div id="collapseTwo" class="panel-collapse collapse">
+                                            <div class="panel-body">
+                                                <table class="table">
+                                                    <tr>
+                                                        <td>
+                                                            <a href="http://www.jquery2dotnet.com">Para dinero </a> <span class="label label-success">$ 9.99</span>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <a href="http://www.jquery2dotnet.com">Segundo</a>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <a href="http://www.jquery2dotnet.com">no se</a>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <a href="http://www.jquery2dotnet.com">Texto</a>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </h:form>
+                        <div class="col-sm-9 col-md-9">
+                            <div class="well">
+                                <h1>Bienvenidos</h1> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

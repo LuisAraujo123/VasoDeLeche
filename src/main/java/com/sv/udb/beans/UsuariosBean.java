@@ -6,7 +6,6 @@
 package com.sv.udb.beans;
 
 import com.sv.udb.controladores.UsuariosFacadeLocal;
-import javax.inject.Named;
 import com.sv.udb.modelos.Usuarios;
 import java.io.Serializable;
 import java.util.List;
@@ -17,7 +16,6 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
-import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
 
 /**
@@ -164,7 +162,8 @@ public class UsuariosBean implements Serializable {
         try {
             if (this.objeUsua != null)
             {
-                redireccion = "/protegido/menu";
+                FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuaActu", this.objeUsua);
+                redireccion = "/protegido/principal";
                 System.out.println(redireccion);
             }
             else
