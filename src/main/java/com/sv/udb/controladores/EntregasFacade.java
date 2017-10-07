@@ -32,9 +32,9 @@ public class EntregasFacade extends AbstractFacade<Entregas> implements Entregas
     }
     
     @Override
-    public List<Entregas> findByEstaEntr(Entregas objeEntr) {
+    public List<Entregas> findByEstaEntr(int estaEntr) {
         TypedQuery<Entregas> query = em.createNamedQuery("Entregas.findByEstaEntr", Entregas.class);
-        query.setParameter("estaEntr", objeEntr.getEstaEntr());
+        query.setParameter("estaEntr", estaEntr);
         if (!query.getResultList().isEmpty())
         {
             return query.getResultList();

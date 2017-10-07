@@ -26,7 +26,7 @@ public interface EntregasFacadeLocal {
 
     List<Entregas> findAll();
     
-    List<Entregas> findByEstaEntr(Entregas entregas);
+    List<Entregas> findByEstaEntr(int estaEntr);
 
     List<Entregas> findRange(int[] range);
 
