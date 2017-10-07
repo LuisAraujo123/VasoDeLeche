@@ -9,6 +9,7 @@ import com.sv.udb.modelos.Usuarios;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -27,6 +28,21 @@ public class UsuariosFacade extends AbstractFacade<Usuarios> implements Usuarios
 
     public UsuariosFacade() {
         super(Usuarios.class);
+    }
+    
+    @Override
+    public Usuarios findByLogiUsua(Usuarios objeUsua) {
+        TypedQuery<Usuarios> query = em.createNamedQuery("Usuarios.findByLogiUsua", Usuarios.class);
+        query.setParameter("nombUsua", objeUsua.getNombUsua());
+        query.setParameter("contUsua", objeUsua.getContUsua());
+        if (!query.getResultList().isEmpty())
+        {
+            return query.getResultList().get(0);
+        }
+        else
+        {
+            return null;
+        }
     }
     
 }

@@ -14,11 +14,12 @@ and open the template in the editor.
     <h:head>
         <title>MANTENIMIENTO DE USUARIOS ::: UDB</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <!--Plugins Frameworks-->
+        <!--Plugins Frameworks y por el desarrolador-->
         <h:outputScript library="js" name="jquery-3.1.0.min.js" />
         <h:outputStylesheet library="css" name="bootstrap.min.css"/>
         <h:outputScript library="js" name="bootstrap.min.js"/>
         <h:outputStylesheet library="css" name="font-awesome.min.css"/>
+        <h:outputStylesheet library="css" name="custom/login.css"/>
         <!--Plugins Alerta-->
         <h:outputStylesheet library="css" name="toastr.min.css"/>
         <h:outputScript library="js" name="toastr.min.js"/>
@@ -31,139 +32,43 @@ and open the template in the editor.
         <!--Plugins Confirmation [Eliminar]-->
         <h:outputScript library="js" name="bootstrap-tooltip.js"/>
         <h:outputScript library="js" name="bootstrap-confirmation.js"/>
-        <!--Plugins para tipos-->
-        <h:outputScript library="js" name="custom/usuarios.js"/>
+        <!--Plugins para usuarios-->
+        <h:outputScript library="js" name="custom/login.js"/>
     </h:head>
     <h:body>
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                <h:panelGroup id="contTabl">
-                    <div id="barrBtns">
-                        <div class="btn-group btn-group-sm">
-                            <h:form id="toolBar">
-                                <p:remoteCommand name="consUsua" actionListener="#{usuariosBean.cons()}"
-                                                 update="formTest"/>
-                                <p:remoteCommand name="elimUsua" actionListener="#{usuariosBean.elim()}" update="contTabl formTest" 
-                                                         oncomplete="INIT_OBJE_USUA()" global="true"/>
-                                <h:commandLink class="btn btn-success btn-sm" id="btonNuev">
-                                    <i class="fa fa-plus"/>
-                                    <p:ajax listener="#{usuariosBean.nuev()}" update="formTest" global="true"/>
-                                    Agregar registro
-                                </h:commandLink>
-                            </h:form>
-                        </div>
-                    </div>
-                    <h:dataTable id="tablUsua" value="#{usuariosBean.listUsua}"
-                                var="fila" class="boottable" pt:data-toolbar="#barrBtns"
-                                styleClass="table-hover table-bordered table-condensed table-striped table-responsive"
-                                pt:data-show-refresh="false" pt:data-show-toggle="false" pt:data-show-columns="false" 
-                                pt:data-search="true" pt:data-pagination="true" pt:data-page-list="[5, 10, 20, 50]"
-                                pt:data-click-to-select="true"  pt:data-select-item-name="radio"
-                                pt:data-single-select="true" columnClasses="col-md-1 col-md-11">
-                        <h:column pt:data-field="state" pt:data-checkbox="true">
-                        </h:column>
-                        <h:column pt:data-align="right" pt:data-sortable="true" pt:data-field="id" pt:data-visible="false">
-                            <f:facet name="header">Código</f:facet>
-                            <h:outputText value="#{fila.codiUsua}"/>
-                        </h:column>
-                        <h:column pt:data-sortable="true" pt:data-field="nomb">
-                            <f:facet name="header">Nombre</f:facet>
-                            <h:outputText value="#{fila.nombUsua}"/>
-                        </h:column>
-                        <h:column pt:data-sortable="true" pt:data-field="tipo">
-                            <f:facet name="header">Tipo de usuario</f:facet>
-                            <h:outputText value="#{fila.codiTipo.nombTipo}"/>
-                        </h:column>
-                        <h:column pt:data-sortable="true" pt:data-field="mail">
-                            <f:facet name="header">Correo</f:facet>
-                            <h:outputText value="#{fila.mailUsua}"/>
-                        </h:column>
-                        <h:column pt:data-sortable="true" pt:data-field="esta">
-                            <f:facet name="header">Estado</f:facet>
-                            <h:outputText value="#{fila.estaUsua}"/>
-                        </h:column>
-                    </h:dataTable>
-                </h:panelGroup>
-            </div>
-        </div>
-        <div class="row">
-            <!-- Modal -->
-            <div class="modal fade" id="modaFormUsua" role="dialog">
-                <div class="modal-dialog modal-sm">
-                    <div class="modal-content">
-                        <h:form id="formTest">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal">X</button>
-                                <h4 class="modal-title">Mantenimiento de Usuarios</h4>
+        <div class="container">
+            <div class="row" style="margin-top:20px">
+                <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+                    <h:form role="form" id="formLogi">
+                        <p:messages autoUpdate="true" showDetail="true"/>
+                        <p:fieldset>
+                            <h2>Por favor inicie sesión</h2>
+                            <hr class="colorgraph"/>
+                            <div class="form-group">
+                                <h:outputLabel  for="usua" value="Usuario: "/>
+                                <h:inputText id="usua" required="true" class="form-control input-lg" value="#{usuariosBean.objeUsua.nombUsua}"/>  
                             </div>
-                            <div class="modal-body">
-                                <fieldset>
-                                    <div class="input-group input-group-xs">
-                                        <h:outputLabel  for="nomb" value="Nombre: "/>
-                                        <h:inputText id="nomb" class="form-control" value="#{usuariosBean.objeUsua.nombUsua}" />
-                                        <h:message for="nomb" errorClass="badge badge-danger" />
-                                    </div>
-                                    <div class="input-group input-group-xs">
-                                        <h:outputLabel  for="tipo" value="Tipo de usuario: "/>
-                                        <h:selectOneMenu id="tipo" class="form-control" value="#{usuariosBean.objeUsua.codiTipo}">
-                                            <f:selectItems value="#{tiposUsuarioBean.listTipoUsua}" var="temp" itemLabel="#{temp.nombTipo}" itemValue="#{temp}"/>
-                                            <f:converter converterId="PooConv"/>
-                                        </h:selectOneMenu>
-                                        <h:message for="tipo" errorClass="badge badge-danger" />
-                                    </div>
-                                    <div class="input-group input-group-xs">
-                                        <h:outputLabel  for="cont" value="Contraseña: "/>
-                                        <h:inputText id="cont" class="form-control" value="#{usuariosBean.objeUsua.contUsua}" />
-                                        <h:message for="cont" errorClass="badge badge-danger" />
-                                    </div>
-                                    <div class="input-group input-group-xs">
-                                        <h:outputLabel  for="mail" value="Correo electrónico: "/>
-                                        <h:inputText id="mail" class="form-control" value="#{usuariosBean.objeUsua.mailUsua}" />
-                                        <h:message for="mail" errorClass="badge badge-danger" />
-                                    </div>
-                                    <div class="input-group input-group-xs">
-                                        <h:outputLabel  for="esta" value="Estado: "/>
-                                        <h:inputText id="esta" class="form-control" value="#{usuariosBean.objeUsua.estaUsua}" />
-                                        <h:message for="esta" errorClass="badge badge-danger" />
-                                    </div>
-                                </fieldset>
+                            <div class="form-group">
+                                <h:outputLabel  for="cont" value="Contraseña: "/>
+                                <h:inputText id="cont" required="true" class="form-control input-lg" value="#{usuariosBean.objeUsua.contUsua}"/>
                             </div>
-                            <div class="modal-footer">
-                                <div class="btn-group">
-                                    <ui:fragment rendered="#{usuariosBean.guardando}">
-                                        <h:commandLink class="btn btn-success btn-sm" id="btonTest">
-                                            <i class="fa fa-plus"/>
-                                            <p:ajax listener="#{usuariosBean.guar()}" process="@form" 
-                                                    update="@form :contTabl" oncomplete="INIT_OBJE_USUA()" global="true"/>
-                                            Guardar
-                                        </h:commandLink>
-                                    </ui:fragment>
-                                    <ui:fragment rendered="#{not usuariosBean.guardando}">
-                                        <h:commandLink class="btn btn-primary btn-sm" id="btonEdit">
-                                            <i class="fa fa-edit"/>
-                                            <p:ajax listener="#{usuariosBean.edit()}" process="@form" 
-                                                    update="@form :contTabl" oncomplete="INIT_OBJE_USUA()" global="true"/>
-                                            Modificar
-                                        </h:commandLink>
-                                        <!--
-                                            # Para corregir el error que redirecciona hice una serie de pasos
-                                            1. Actualizar el bootstrap-confirmation, yo usé este: http://bootstrap-confirmation.js.org/
-                                            2. Quitar la referencia: bootstrap-confirmation.min.js del fragmento head.xhtml
-                                            3. Modifiqué el custom usuarios.js(en este ejemplo) quitando la función y dejando todo en una sola línea
-                                            4. Y por último y lo mas importante que creo era lo único necesario al elemento h:outputLink le agregué el value="#"
-                                        -->
-                                        <h:outputLink id="btonElim" class="btn btn-danger btn-sm" value="#" pt:data-placement="left"
-                                                      pt:data-toggle="confirmation" pt:data-btn-ok-label="Sí" pt:data-btn-ok-icon="fa fa-trash-o"
-                                                      pt:data-btn-ok-class="btn-danger btn-xs" pt:data-btn-cancel-label="No" pt:data-btn-cancel-icon="fa fa-mail-forward"
-                                                      pt:data-btn-cancel-class="btn-default btn-xs" pt:data-title="¿Está seguro que desea eliminar?"
-                                                      pt:data-on-confirm="elimUsua"><!--data-on-confirm = nombre del comando remoto de eliminar (sin paréntesis)-->
-                                            <i class="fa fa-times"/> Eliminar
-                                        </h:outputLink>
-                                    </ui:fragment>
+                            <span class="button-checkbox">
+                                <button type="button" class="btn" data-color="info">Recuerdame</button>
+                                <input type="checkbox" name="remember_me" id="remember_me" checked="checked" class="hidden"/>
+                                    <a href="" class="btn btn-link pull-right">Olvidaste tu contraseña?</a>
+                            </span>
+                            <hr class="colorgraph"/>
+                            <div class="row">
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <p:commandButton id="btonTest" 
+                                                    action="#{usuariosBean.logi()}" 
+                                                    icon ="ui-icon-key"
+                                                    class="btn btn-lg btn-success btn-block"
+                                                    value="Log in"/>
                                 </div>
                             </div>
-                        </h:form>
-                    </div>
+                        </p:fieldset>
+                    </h:form>
                 </div>
             </div>
         </div>

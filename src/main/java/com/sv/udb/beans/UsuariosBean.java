@@ -13,8 +13,11 @@ import java.util.List;
 import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.inject.Named;
 import javax.faces.view.ViewScoped;
+import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
 
 /**
@@ -31,7 +34,7 @@ public class UsuariosBean implements Serializable {
     private boolean guardando;
     private Usuarios objeUsua;
     private List<Usuarios> listUsua;
-
+    
     /**
      * Creates a new instance of UsuariosBean
      */
@@ -65,7 +68,7 @@ public class UsuariosBean implements Serializable {
     public List<Usuarios> getListUsua() {
         return listUsua;
     }
-    
+
     @PostConstruct
     public void init()
     {
@@ -151,6 +154,27 @@ public class UsuariosBean implements Serializable {
         {
             
         }
+    }
+    
+    public String logi()
+    {
+        
+        String redireccion = null;
+        this.objeUsua = this.usuariosFacade.findByLogiUsua(this.objeUsua);
+        try {
+            if (this.objeUsua != null)
+            {
+                redireccion = "/protegido/menu";
+                System.out.println(redireccion);
+            }
+            else
+            {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso", "Por favor ingrese correctamente sus credenciales"));
+            }
+        } catch (Exception e) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Aviso", "Hubo un problema, disculpe los inconvenientes"));
+        }
+        return redireccion;
     }
     
     private void setItem(Usuarios item)
